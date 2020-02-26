@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'cache';
+  src:
+    url('../fonts/cache-vintage/_woff2/Cache-Regular.woff2') format('woff2'),
+    url('../fonts/cache-vintage/_woff/Cache-Regular.woff') format('woff'),
+    url('../fonts/cache-vintage/_ttf/Cache-Regular.ttf') format('truetype')
+}
+
+@font-face {
+  font-family: 'cache-oblique';
+  src:
+    url('../fonts/cache-vintage/_woff2/Cache-Oblique.woff2') format('woff2'),
+    url('../fonts/cache-vintage/_woff/Cache-Oblique.woff') format('woff'),
+    url('../fonts/cache-vintage/_ttf/Cache-Oblique.ttf') format('truetype')
+}
+
+$color: red;
+
+body {
+  .hello {
+    color: $color;
+    padding : 10px;
+    background: url('../img/icon.png');
+    font-family: 'cache';
+  }
+}
