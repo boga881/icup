@@ -1,0 +1,8 @@
+{
+  "email_address": "dan@iscool27.com",
+  "status": "subscribed",
+  "merge_fields": {
+    "FNAME": "Urist",
+    "MMERGE3": "Test"
+  }
+}
