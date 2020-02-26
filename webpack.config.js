@@ -1,8 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-/* const {
-  CleanWebpackPlugin
-} = require('clean-webpack-plugin');*/
 
 module.exports = {
   mode: 'development',
@@ -15,8 +12,8 @@ module.exports = {
     contentBase: './dist',
   },
   plugins: [
-    // new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      template: "./src/html/index.html",
       title: 'ICUP',
       favicon: './src/img/icon.png'
     }),
@@ -28,11 +25,14 @@ module.exports = {
   module: {
     rules: [
       {
-       test: /\.(js|jsx)$/,
-       exclude: /node_modules/,
-       use: {
-         loader: "babel-loader"
-       }
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       },
       {
         test: /\.s[ac]ss$/i,
