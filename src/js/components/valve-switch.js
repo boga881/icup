@@ -3,7 +3,7 @@ import tapOrClick from 'react-tap-or-click';
 import { connect } from 'react-redux';
 import { pollValve,toggleValve } from '../actions/valve';
 
-@connect(state => state.valve)
+connect(state => state.valve)
 export default class ValveSwitch extends React.Component {
     constructor(props) {
         super(props);

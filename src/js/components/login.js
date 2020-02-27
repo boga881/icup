@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { login } from '../actions/auth';
 import Logo from './logo';
 
-@connect(state => state.auth)
+connect(state => state.auth)
 export default class LoginComponent extends React.Component {
     constructor(props) {
         super(props);

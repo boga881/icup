@@ -1,16 +1,16 @@
 import tapOrClick from 'react-tap-or-click';
 import React from 'react';
-import { pushPath } from 'redux-simple-router';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ValveSwitch from './valve-switch';
 import Logo from './logo';
 
-let DevTools = null; 
+let DevTools = null;
 if (process.env.NODE_ENV !== 'production') {
-    DevTools = require('../devtools');
+    DevTools = require('../utils/devtools');
 }
 
-@connect(state => state)
+connect(state => state)
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
@@ -24,7 +24,7 @@ export default class Main extends React.Component {
     }
     handleNav(path,e) {
         e.preventDefault();
-        this.props.dispatch(pushPath(path));        
+        this.props.dispatch(BrowserRouter(path));
         $('.button-collapse').sideNav('hide');
     }
     render() {

@@ -1,6 +1,6 @@
 import actions from './action-types';
 import { apiError } from './api';
-import superagent from '../superagent-promise';
+import superagent from '../utils/superagent-promise';
 
 export function getSchedule() {
     return dispatch => {

@@ -1,25 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router';
+//import { Router } from 'react-router';
 import { Provider } from 'react-redux';
+import { Router, Switch } from 'react-router';
 import { createBrowserHistory } from 'history';
-//import { syncReduxAndRouter } from 'redux-simple-router';
+//import { syncHistoryWithStore } from 'react-router-redux';
+//import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-//import createStoreWithMiddleware from './store';
-//import routes from './routes';
+import createStoreWithMiddleware from './utils/store';
+import routes from './utils/routes';
 
-//const store = createStoreWithMiddleware();
-//const history = createBrowserHistory();
-//syncReduxAndRouter(history,store);
+const store = createStoreWithMiddleware();
+const history = createBrowserHistory();
+const BrowserRouter = require("react-router-dom").BrowserRouter(history,store);
+//syncHistoryWithStore(history,store);
+//BrowserRouter(history,store);
 
-ReactDOM.render(
-    <h1>Hello React</h1>
-    // <Provider store={store}>
-    //   <Router history={history}>
-    //       { routes }
-    //       </Router>
-    // </Provider>
+ReactDOM.render(<Provider store={store}>
+      <h1>...</h1>
+      <Router history={history}>
+           { routes }
+           </Router>
+    </Provider>
 ,document.getElementById('app-container'));
+
 
 // import _ from 'lodash';
 // import '../css/style.scss';

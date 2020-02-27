@@ -1,9 +1,9 @@
-import { pushPath } from 'redux-simple-router';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 export function apiError(err) {
     return dispatch => {
         if (err.status === 401) {
-            dispatch(pushPath('/login'));
+            dispatch(BrowserRouter('/login'));
         }
     };
 }

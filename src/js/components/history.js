@@ -5,7 +5,7 @@ import { updateHistory } from '../actions/history';
 
 import Loading from './loading';
 
-@connect(state => state.history)
+connect(state => state.history)
 export default class HistoryComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -20,13 +20,13 @@ export default class HistoryComponent extends React.Component {
             return <Loading />;
         }
         return <div>
-            <h3>History</h3> 
+            <h3>History</h3>
             {this.props.items.length ? (
             <ul className='collection'>
                 {this.props.items.map(i => {
                     return <li key={i.id} className='collection-item'>{moment(i.timestamp,'x').format('MMM DD, hh:mm:ss a')} - {i.message} by <strong>{i.source}</strong></li>;
                 })}
-            </ul>) : 
+            </ul>) :
             (<div className='col s12 m6 offset-m3'>
                 <div className='card-panel green accent-4'>
                     <span className='white-text'>

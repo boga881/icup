@@ -2,13 +2,14 @@ import React from 'react'
 import tapOrClick from 'react-tap-or-click';
 import { connect } from 'react-redux';
 
-import superagent from '../superagent-promise';
-import * as keys from '../../keys';
+import superagent from '../utils/superagent-promise';
+import * as keys from '../../../keys';
 import { getSettings, updateSettings } from '../actions/settings';
 import Loading from './loading';
-import * as clientConfig from '../client-config';
+import * as clientConfig from '../utils/client-config';
+import PropTypes from 'prop-types'
 
-@connect(state => state.settings)
+connect(state => state.settings)
 export default class SettingsComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -130,8 +131,8 @@ export default class SettingsComponent extends React.Component {
 
 class UserLocationComponent extends React.Component {
     static propTypes = {
-        onChange: React.PropTypes.func.isRequired,
-        location: React.PropTypes.object
+        onChange: PropTypes.func.isRequired,
+        location: PropTypes.object
     }
     constructor(props) {
         super(props);
@@ -191,8 +192,8 @@ class UserLocationComponent extends React.Component {
             return <div className="row">
                 <div className="col s12">
                     <div className="card-panel teal">
-                        <span className="white-text">{ 
-                            this.state.denied ? 
+                        <span className="white-text">{
+                            this.state.denied ?
                             'To use the weather checking feature this application must be able to determine your current location. Ensure that you have given permission for this website to view your location information.' : 'Your browser doesn\t support geolocation. To use the weather checking feature this application must be able to determine your current location.'} </span>
                     </div>
                 </div>
@@ -207,9 +208,9 @@ class UserLocationComponent extends React.Component {
             </div>;
         } else {
             return <div>
-                { this.state.weather ? 
+                { this.state.weather ?
                 (<div className='weather-info'>
-                    <img src={this.state.weather.icon} /> 
+                    <img src={this.state.weather.icon} />
                     <h5 className='right'>{this.state.weather.description}</h5>
                 </div>)
                 : null }

@@ -1,5 +1,5 @@
-import { pushPath } from 'redux-simple-router';
-import superagent from '../superagent-promise';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import superagent from '../utils/superagent-promise';
 import actions from './action-types';
 import { pollValve } from './valve';
 
@@ -21,7 +21,7 @@ export function login(name, password) {
                 dispatch(res.body);
                 if (res.body.success) {
                     dispatch(pollValve());
-                    dispatch(pushPath('/'));
+                    dispatch(BrowserRouter('/'));
                 }
             })
             .catch(() => {

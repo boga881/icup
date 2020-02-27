@@ -5,7 +5,7 @@ import { getSchedule, removeFromSchedule, addToSchedule } from '../actions/sched
 
 import Loading from './loading'
 
-@connect(state => state.schedule)
+connect(state => state.schedule)
 export default class ScheduleComponent extends React.Component {
     constructor(props) {
         super(props);
