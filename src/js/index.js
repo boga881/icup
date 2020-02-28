@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //import { Router } from 'react-router';
 import { Provider } from 'react-redux';
-import { Router, Switch } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 //import { syncHistoryWithStore } from 'react-router-redux';
 //import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -12,16 +12,17 @@ import routes from './utils/routes';
 
 const store = createStoreWithMiddleware();
 const history = createBrowserHistory();
-const BrowserRouter = require("react-router-dom").BrowserRouter(history,store);
+//const BrowserRouter = require("react-router-dom").BrowserRouter(history,store);
 //syncHistoryWithStore(history,store);
 //BrowserRouter(history,store);
 
-ReactDOM.render(<Provider store={store}>
-      <h1>...</h1>
-      <Router history={history}>
-           { routes }
-           </Router>
-    </Provider>
+ReactDOM.render(
+  <Provider store={store}>
+    <h1>...</h1>
+    <Router history={history}>
+      { routes }
+    </Router>
+  </Provider>
 ,document.getElementById('app-container'));
 
 

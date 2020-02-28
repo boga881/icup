@@ -5,7 +5,6 @@ import {
   Switch,
   useParams
 } from 'react-router-dom';
-
 import Main from '../components/main';
 import Schedule from '../components/schedule';
 import Settings from '../components/settings';
@@ -16,7 +15,8 @@ import NotFound from '../components/not-found';
 export default (<Router>
   <Switch>
     <Route path='/login' component={Login} />
-    <Route exact path='/' component={Main}>
+    <Route exact path='/' >
+        <Main />
         <Route path='/settings' component={Settings} />
         <Route path='/history' component={History} />
         <Route path='*' component={NotFound} />

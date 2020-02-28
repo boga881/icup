@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -19,6 +20,7 @@ module.exports = {
       title: 'ICUP',
       favicon: './src/img/icon.png'
     }),
+    new webpack.EnvironmentPlugin({ NODE_ENV: 'development' })
   ],
   output: {
     filename: '[name].bundle.js',
