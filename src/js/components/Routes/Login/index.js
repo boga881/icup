@@ -1,8 +1,8 @@
 import React from 'react';
 import tapOrClick from 'react-tap-or-click';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth';
-import Logo from './logo';
+import { login } from 'Actions/auth';
+import Logo from 'Components/Logo';
 
 connect(state => state.auth)
 export default class LoginComponent extends React.Component {

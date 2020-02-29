@@ -1,3 +1,5 @@
+// @TODO DELETE FILE
+
 import React from 'react';
 import {
   BrowserRouter as Router,
@@ -12,14 +14,12 @@ import History from '../components/history';
 import Login from '../components/login';
 import NotFound from '../components/not-found';
 
-export default (<Router>
-  <Switch>
-    <Route path='/login' component={Login} />
-    <Route exact path='/' >
-        <Main />
-        <Route path='/settings' component={Settings} />
-        <Route path='/history' component={History} />
-        <Route path='*' component={NotFound} />
-    </Route>
-  </Switch>
-</Router>);
+export default (
+<Main/>
+/*    <Route path='/login' component={Login} />
+    <Route exact path='/'component={Main} />
+    <Route path='/settings' component={Settings} />
+    <Route path='/history' component={History} />
+    <Route path='*' component={NotFound} />*/
+
+);

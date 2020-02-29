@@ -2,75 +2,84 @@ import React from 'react'
 import tapOrClick from 'react-tap-or-click';
 import { connect } from 'react-redux';
 
-import superagent from '../utils/superagent-promise';
-import * as keys from '../../../keys';
-import { getSettings, updateSettings } from '../actions/settings';
-import Loading from './loading';
-import * as clientConfig from '../utils/client-config';
+import superagent from 'Utils/superagent-promise';
+import * as keys from 'Keys';
+import { getSettings, updateSettings } from 'Actions/settings';
+import Loading from 'Components/Loading';
+import * as clientConfig from 'Utils/client-config';
 import PropTypes from 'prop-types'
 
 connect(state => state.settings)
 export default class SettingsComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            shutoffDuration: 0,
-            location: null,
-            checkWeather: false
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      shutoffDuration: 0,
+      location: null,
+      checkWeather: false
+    };
+  }
+
+  componentDidMount() {
+    if (!this.props.initialized) {
+      this.props.dispatch(getSettings());
+    } else {
+      this.setStateFromProps(this.props);
     }
-    componentDidMount() {
-        if (!this.props.initialized) {
-            this.props.dispatch(getSettings());
-        } else {
-            this.setStateFromProps(this.props);
-        }
+  }
+
+  componentDidUpdate() {
+    {/* eslint no-undef:0 */}
+    Materialize.updateTextFields();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initialized && !nextProps.updating) {
+      this.setStateFromProps(nextProps);
     }
-    componentDidUpdate() {
-        /* eslint no-undef:0 */
-        Materialize.updateTextFields();
+  }
+
+  setStateFromProps(props) {
+    this.setState({
+      shutoffDuration: props.settings.shutoffDuration,
+      location: props.settings.location,
+      checkWeather: !!props.settings.location
+    });
+  }
+
+  handleChangeShutoffDuration = (e) => {
+    const newState = {
+      shutoffDuration: parseInt(e.target.value)
+    };
+    this.setState(newState);
+    this.props.dispatch(updateSettings(newState));
+  }
+
+  handleCheckWeather = (e) => {
+    this.setState({
+      checkWeather: e.target.checked
+    });
+    if (!e.target.checked) {
+      this.props.dispatch(updateSettings({
+          location: null
+      }));
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.initialized && !nextProps.updating) {
-            this.setStateFromProps(nextProps);
-        }
-    }
-    setStateFromProps(props) {
-        this.setState({
-            shutoffDuration: props.settings.shutoffDuration,
-            location: props.settings.location,
-            checkWeather: !!props.settings.location
-        });
-    }
-    handleChangeShutoffDuration = (e) => {
-        const newState = {
-            shutoffDuration: parseInt(e.target.value)
-        };
-        this.setState(newState);
-        this.props.dispatch(updateSettings(newState));
-    }
-    handleCheckWeather = (e) => {
-        this.setState({
-            checkWeather: e.target.checked
-        });
-        if (!e.target.checked) {
-            this.props.dispatch(updateSettings({
-                location: null
-            }));
-        }
-    }
-    handleChangeLocation = (loc) => {
-        const newState = {
-           location: loc
-        };
-        this.setState(newState);
-        this.props.dispatch(updateSettings(newState));
-    }
-    handleRefreshLocation = () => {
-        this.setState({ location: null });
-    }
-    render() {
-        return !this.props.initialized ? <Loading /> : (<div className='row'>
+  }
+
+  handleChangeLocation = (loc) => {
+    const newState = {
+       location: loc
+    };
+    this.setState(newState);
+    this.props.dispatch(updateSettings(newState));
+  }
+
+  handleRefreshLocation = () => {
+    this.setState({ location: null });
+  }
+
+  render() {
+    return !this.props.initialized ? <Loading /> : (<div className='row'>
             <h3>Settings</h3>
             <form className='col s12'>
                 <div className='row'>

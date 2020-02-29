@@ -20,12 +20,24 @@ module.exports = {
       title: 'ICUP',
       favicon: './src/img/icon.png'
     }),
-    new webpack.EnvironmentPlugin({ NODE_ENV: 'development' })
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
+      NODE_PATH: '/src'
+     })
   ],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  resolve: {
+   alias: {
+     Actions: path.resolve(__dirname, 'src/js/actions/'),
+     Keys$: path.resolve(__dirname, 'keys.js'),
+     Utils: path.resolve(__dirname, 'src/js/utils/'),
+     Components: path.resolve(__dirname, 'src/js/Components/'),
+     Reducers: path.resolve(__dirname, 'src/js/reduers/')
+   }
+ },
   module: {
     rules: [
       {
