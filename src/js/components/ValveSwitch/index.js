@@ -5,11 +5,6 @@ import { pollValve, toggleValve } from 'Actions/valve.js';
 
 function ValveSwitch(props) {
 
-/*  componentDidMount() {
-    this.props.dispatch(pollValve());
-  }
-*/
-
   const handleChange = () => props.dispatch(toggleValve());
 
   return (<div className='right switch'>
