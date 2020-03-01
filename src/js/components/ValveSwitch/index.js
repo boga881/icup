@@ -1,31 +1,25 @@
 import React from 'react';
 import tapOrClick from 'react-tap-or-click';
 import { connect } from 'react-redux';
-import { pollValve, toggleValve } from '../../actions/valve';
+import { pollValve, toggleValve } from 'Actions/valve.js';
 
-connect(state => state.valve)
-export default class ValveSwitch extends React.Component {
+function ValveSwitch(props) {
 
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
+/*  componentDidMount() {
     this.props.dispatch(pollValve());
   }
+*/
 
-  handleChange() {
-    this.props.dispatch(toggleValve());
-  }
+  const handleChange = () => props.dispatch(toggleValve());
 
-  render() {
-    return (<div className='right switch'>
-      <label>
-        Closed
-        <input type='checkbox' {...tapOrClick(this.handleChange)} checked={this.props.open}/>
-        <span className='lever'></span>
-        Open
-      </label>
-    </div>);
-  }
+  return (<div className='right switch'>
+    <label>
+      Closed
+      <input type='checkbox' {...tapOrClick(handleChange)} checked={props.open}/>
+      <span className='lever'></span>
+      Open
+    </label>
+  </div>);
 }
+
+export default connect()(ValveSwitch);

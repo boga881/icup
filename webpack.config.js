@@ -23,7 +23,11 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       NODE_PATH: '/src'
-     })
+    }),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
+ })
   ],
   output: {
     filename: '[name].bundle.js',

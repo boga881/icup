@@ -1,31 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-{ /* import { Router } from 'react-router';
+import { createStore } from 'redux'
+import * as createHistory  from 'history'
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+{ /* import { Router } from 'react-router';
+
+
 import { createBrowserHistory } from 'history';
 import { Routes } from './components/Routes';*/}
 
 import Routes from './Components/Routes';
+import reducer from './reducers'
 
 { /* import { syncHistoryWithStore } from 'react-router-redux'; */}
 { /* import { BrowserRouter as Router, Route } from 'react-router-dom'; */}
 
 { /* import createStoreWithMiddleware from './utils/store';
-import routes from './utils/routes';
+import routes from './utils/routes'; */ }
 
-const store = createStoreWithMiddleware();
-const history = createBrowserHistory(); */ }
+const store = createStore(reducer);
+{ /*const store = createStoreWithMiddleware();
+const store = createStore(todoApp, {}) */}
+const history = createHistory.createBrowserHistory();
+
+{ /* const history = createBrowserHistory(); */ }
 { /* const BrowserRouter = require("react-router-dom").BrowserRouter(history,store); */}
 { /* syncHistoryWithStore(history,store); */}
 { /* BrowserRouter(history,store); */}
-{ /* <Provider store={store}> */ }
+{ /**/ }
 ReactDOM.render(
-
-    <Routes />
-
-
-
+  <Provider store={store}>
+    <Router history={history}>
+      <Routes />
+    </Router>
+  </Provider>
 ,document.getElementById('app-container'));
 
 

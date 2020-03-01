@@ -19,12 +19,14 @@ export default class Routes extends React.Component {
         <h1>Mi Aplicacion React Js</h1>
         <h3>Dan is cool</h3>
         <Router>
-          <Route exact path='/' component={Main} />
-          <Route path='/login' component={Login} />
-          <Route path='/schedule' component={Schedule} />
-          <Route path='/settings' component={Settings} />
-          <Route path='/history' component={History} />
-          <Route path='*' component={NotFound} />
+          <Switch>
+            <Route exact path='/' component={Main} />
+            <Route path='/login' component={Login} />
+            <Route path='/schedule' component={Schedule} />
+            <Route path='/settings' component={Settings} />
+            <Route path='/history' component={History} />
+            <Route component={NotFound} />
+          </Switch>
         </Router>
       </div>
     )

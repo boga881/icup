@@ -1,9 +1,9 @@
 'use strict'
-import superagent from '../utils/superagent-promise';
-import actions from './action-types';
-import { updateHistory } from './history';
-import { apiError } from './api';
-import * as clientConfig from '../utils/client-config';
+import superagent from 'Utils/superagent-promise';
+import actions from 'Actions/action-types';
+import { updateHistory } from 'Actions/history';
+import { apiError } from 'Actions/api';
+import * as clientConfig from 'Utils/client-config';
 
 export function toggleValve() {
     return dispatch => {
