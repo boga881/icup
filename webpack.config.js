@@ -10,9 +10,8 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './dist',
-    historyApiFallback: true,
-    hot: true
+    contentBase: path.resolve(__dirname, './dist'),
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -25,13 +24,15 @@ module.exports = {
       NODE_PATH: '/src'
     }),
     new webpack.ProvidePlugin({
+      $: 'jquery',
       jQuery: 'jquery',
-      $: 'jquery'
+      'window.$': 'jquery',
+      'window.jQuery': 'jquery'
  })
   ],
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, './dist'),
   },
   resolve: {
    alias: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jquery';
+//import $ from 'jquery';
 //import { sidenav } from '../../../../../node_modules/materialize-css/js/sidenav.js';
 import tapOrClick from 'react-tap-or-click';
 import { BrowserRouter as Router, Switch, Route, Link, useParams } from 'react-router-dom';
