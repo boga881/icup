@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import * as createHistory  from 'history'
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import SideNav from 'Components/SideNav';
 import Routes from 'Components/Routes';
 import reducer from './reducers'
+import thunk from 'redux-thunk';
+
 
 { /* import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
@@ -23,8 +25,12 @@ const store = createStore(todoApp, {}) */}
 
 
 function App() {
-  const store = createStore(reducer);
+
   const history = createHistory.createBrowserHistory();
+  const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+  );
 
   return (
     <div className="container">

@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { updateHistory } from 'Actions/history';
-
 import Loading from 'Components/Loading';
 
-connect(state => state.history)
-
-export default class HistoryComponent extends React.Component {
+class HistoryComponent extends Component {
 
   constructor(props) {
     super(props);
@@ -18,25 +15,39 @@ export default class HistoryComponent extends React.Component {
       this.props.dispatch(updateHistory());
     }
   }
+
   render() {
-    if (!this.props.initialized && this.props.loading) {
-        return <Loading />;
-    }
-    return <div>
-      <h3>History</h3>
-      {this.props.items.length ? (
-      <ul className='collection'>
-        {this.props.items.map(i => {
-          return <li key={i.id} className='collection-item'>{moment(i.timestamp,'x').format('MMM DD, hh:mm:ss a')} - {i.message} by <strong>{i.source}</strong></li>;
-        })}
-      </ul>) :
-      (<div className='col s12 m6 offset-m3'>
-        <div className='card-panel green accent-4'>
-          <span className='white-text'>
-            Your watering history is currently empty. Every watering event that occurs will be recorded here.
-          </span>
-        </div>
-      </div>)}
-    </div>
+    const {initialized, loading, items } = this.props;
+    const isLoading = (!initialized && loading);
+
+    return (
+      <div>
+        if (isLoading) {
+          <Loading />
+        }
+        else {
+          <h3>History</h3>
+          // if (items.length > 0) {
+          //   <ul className='collection'>
+          //     {items.map(i => {
+          //       return <li key={i.id} className='collection-item'>{moment(i.timestamp,'x').format('MMM DD, hh:mm:ss a')} - {i.message} by <strong>{i.source}</strong></li>;
+          //     })}
+          //   </ul>
+          // }
+          // else {
+          //   <div className='col s12 m6 offset-m3'>
+          //     <div className='card-panel green accent-4'>
+          //       <span className='white-text'>
+          //         Your watering history is currently empty. Every watering event that occurs will be recorded here.
+          //       </span>
+          //     </div>
+          //   </div>
+          // }
+        }
+      </div>
+    );
   }
+
 }
+
+export default connect()(HistoryComponent);

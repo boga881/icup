@@ -7,10 +7,10 @@ import historyReducer from './history-reducer';
 import settingsReducer from './settings-reducer';
 
 export default combineReducers({
-  //  auth: authReducer,
+  auth: authReducer,
   routing: {Router},
-  //  valve: valveReducer,
-  //  schedule: scheduleReducer,
+  valve: valveReducer,
+  schedule: scheduleReducer,
   history: historyReducer,
-  //  settings: settingsReducer
+  settings: settingsReducer
 })
