@@ -48,13 +48,14 @@ function Main(props) {
 
           <a href='#' {...tapOrClick(handleShowSideNav)} data-activates='mobile-nav' className='button-collapse'><i style={{marginLeft:'8px'}} className='material-icons'>menu</i></a>
 
+          /* HIDE DESKTOP MENU & USE SIDENAV
           <Route>
             <ul className='right hide-on-med-and-down'>
               <li><Link to="/">Schedule</Link></li>
               <li><Link to="/history">History</Link></li>
               <li><Link to="/settings">Settings</Link></li>
             </ul>
-          </Route>
+          </Route> */
 
           {/* <ul className='right hide-on-med-and-down'>
               <li className={this.props.routing.path==='/'?'active':''}><a {...tapOrClick(this.handleNav.bind(this,'/'))}><i className='material-icons'>schedule</i></a></li>
@@ -65,18 +66,7 @@ function Main(props) {
           <ValveSwitch />
 
         </div>
-        <ul className='side-nav' id='mobile-nav'>
-          <li><Link to="/">Schedule</Link></li>
-          <li><Link to="/history">History</Link></li>
-          <li><Link to="/settings">Settings</Link></li>
-          <li><Link to="/logout">Logout</Link></li>
-        </ul>
-        {/*  <ul className='side-nav' id='mobile-nav'>
-              <li className={this.props.routing.path==='/'?'active':''}><a {...tapOrClick(this.handleNav.bind(this,'/'))}><i className='material-icons left'>schedule</i> Schedule</a></li>
-              <li className={this.props.routing.path==='/history'?'active':''}><a {...tapOrClick(this.handleNav.bind(this,'/history'))}><i className='material-icons left'>history</i> History</a></li>
-              <li className={this.props.routing.path==='/settings'?'active':''}><a {...tapOrClick(this.handleNav.bind(this,'/settings'))}><i className='material-icons left'>settings</i> Settings</a></li>
-              <li><a href='/logout'><i className='material-icons left'>exit_to_app</i> Logout</a></li>
-          </ul>*/}
+
       </nav>
     </header>
     <main>

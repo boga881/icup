@@ -4,21 +4,13 @@ import { createStore } from 'redux'
 import * as createHistory  from 'history'
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
-//import '../../node_modules/materialize-css/dist/css/materialize.min.css';
-//import '../../node_modules/materialize-css/dist/js/materialize.js';
-
-
-//import 'materialize-css';
-//import { select } from 'materialize-css/js/select';
+import SideNav from 'Components/SideNav';
+import Routes from 'Components/Routes';
+import reducer from './reducers'
 
 { /* import { Router } from 'react-router';
-
-
 import { createBrowserHistory } from 'history';
 import { Routes } from './components/Routes';*/}
-
-import Routes from './Components/Routes';
-import reducer from './reducers'
 
 { /* import { syncHistoryWithStore } from 'react-router-redux'; */}
 { /* import { BrowserRouter as Router, Route } from 'react-router-dom'; */}
@@ -26,23 +18,37 @@ import reducer from './reducers'
 { /* import createStoreWithMiddleware from './utils/store';
 import routes from './utils/routes'; */ }
 
-const store = createStore(reducer);
 { /*const store = createStoreWithMiddleware();
 const store = createStore(todoApp, {}) */}
-const history = createHistory.createBrowserHistory();
+
+
+function App() {
+  const store = createStore(reducer);
+  const history = createHistory.createBrowserHistory();
+
+  return (
+    <div className="container">
+      <Provider store={store}>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </Provider>
+      <SideNav />
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("app-container");
+ReactDOM.render(<App />, rootElement);
+
+
 
 { /* const history = createBrowserHistory(); */ }
 { /* const BrowserRouter = require("react-router-dom").BrowserRouter(history,store); */}
 { /* syncHistoryWithStore(history,store); */}
 { /* BrowserRouter(history,store); */}
 { /**/ }
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <Routes />
-    </Router>
-  </Provider>
-,document.getElementById('app-container'));
+
 
 
 {/* <Router history={history}>

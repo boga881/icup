@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const MODULE_BUILD_DIR = path.resolve(__dirname, './dist');
+
 module.exports = {
   mode: 'development',
   entry: {
@@ -28,11 +30,11 @@ module.exports = {
       jQuery: 'jquery',
       'window.$': 'jquery',
       'window.jQuery': 'jquery'
- })
+    })
   ],
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, './dist'),
+    path: MODULE_BUILD_DIR,
   },
   resolve: {
    alias: {
@@ -62,7 +64,7 @@ module.exports = {
         }
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.css?/,
         use: [
           'style-loader',
           'css-loader',

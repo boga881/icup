@@ -2,77 +2,78 @@ import actions from './action-types';
 import { apiError } from './api';
 import superagent from '../utils/superagent-promise';
 
+//https://blog.logrocket.com/managing-asynchronous-actions-in-redux-1bc7d28a00c6/
 export function getSchedule() {
-    return dispatch => {
+  return dispatch => {
+    dispatch({
+      type: actions.GET_SCHEDULE_START
+    });
+    superagent
+      .get('/api/1/schedule')
+      .end()
+      .then(res => {
+        res.body.type = actions.GET_SCHEDULE_FINISH;
+        dispatch(res.body);
+      })
+      .catch(err => {
         dispatch({
-            type: actions.GET_SCHEDULE_START
+          type: actions.GET_SCHEDULE_FINISH,
+          success: false
         });
-        superagent
-            .get('/api/1/schedule')
-            .end()
-            .then(res => {
-                res.body.type = actions.GET_SCHEDULE_FINISH;
-                dispatch(res.body);
-            })
-            .catch(err => {
-                dispatch({
-                    type: actions.GET_SCHEDULE_FINISH,
-                    success: false
-                });
-                dispatch(apiError(err));
-            });
-    };
+        dispatch(apiError(err));
+      });
+  };
 }
 
 export function removeFromSchedule(id) {
-    return dispatch => {
+  return dispatch => {
+    dispatch({
+      type: actions.REMOVE_FROM_SCHEDULE_START,
+      id
+    });
+    superagent
+      .del('/api/1/schedule/' + id)
+      .end()
+      .then(res => {
+        res.body.type = actions.REMOVE_FROM_SCHEDULE_FINISH;
+        res.body.id = id;
+        dispatch(res.body);
+      })
+      .catch(err => {
         dispatch({
-            type: actions.REMOVE_FROM_SCHEDULE_START,
-            id
+          type: actions.REMOVE_FROM_SCHEDULE_FINISH,
+          id,
+          success: false
         });
-        superagent
-            .del('/api/1/schedule/' + id)
-            .end()
-            .then(res => {
-                res.body.type = actions.REMOVE_FROM_SCHEDULE_FINISH;
-                res.body.id = id;
-                dispatch(res.body);
-            })
-            .catch(err => {
-                dispatch({
-                    type: actions.REMOVE_FROM_SCHEDULE_FINISH,
-                    id,
-                    success: false
-                });
-                dispatch(apiError(err));
-            });
-    };
+        dispatch(apiError(err));
+      });
+  };
 }
 
 export function addToSchedule(duration, time, frequency) {
-    return dispatch => {
+  return dispatch => {
+    dispatch({
+      type: actions.ADD_TO_SCHEDULE_START
+    });
+    superagent
+      .post('/api/1/schedule')
+      .accept('json')
+      .send({
+        duration,
+        time,
+        frequency
+      })
+      .end()
+      .then(res => {
+        res.body.type = actions.ADD_TO_SCHEDULE_FINISH;
+        dispatch(res.body);
+      })
+      .catch(err => {
         dispatch({
-            type: actions.ADD_TO_SCHEDULE_START
+          type: actions.ADD_TO_SCHEDULE_FINISH,
+          success: false
         });
-        superagent
-            .post('/api/1/schedule')
-            .accept('json')
-            .send({
-                duration,
-                time,
-                frequency
-            })
-            .end()
-            .then(res => {
-                res.body.type = actions.ADD_TO_SCHEDULE_FINISH;
-                dispatch(res.body);
-            })
-            .catch(err => {
-                dispatch({
-                    type: actions.ADD_TO_SCHEDULE_FINISH,
-                    success: false
-                });
-                dispatch(apiError(err));
-            });
-    };
+        dispatch(apiError(err));
+      });
+  };
 }

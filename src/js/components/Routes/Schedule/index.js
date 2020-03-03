@@ -4,16 +4,13 @@ import { connect } from 'react-redux';
 import { getSchedule, removeFromSchedule, addToSchedule } from 'Actions/schedule';
 import Loading from 'Components/Loading'
 
-import M from "materialize-css";
-//import "materialize-css/dist/css/materialize.min.css";
-
 class ScheduleComponent extends Component {
 
   constructor(props) {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.adding && !nextProps.adding) {
       $('#add-modal').closeModal();
     }
@@ -21,12 +18,10 @@ class ScheduleComponent extends Component {
 
   componentDidMount() {
     /* eslint no-undef:0 */
-    let instance = M.Sidenav.getInstance(this.Sidenav);
-    instance.open();
-    //$('select').formSelect();
-    //if (!this.props.initialized) {
-    //  props.dispatch(getSchedule());
-    //}
+    $('select').formSelect();
+    if (!this.props.initialized) {
+      this.props.dispatch(getSchedule());
+    }
   }
 
   handleShowAdd = () => {
@@ -34,11 +29,11 @@ class ScheduleComponent extends Component {
   }
 
   handleDelete = (id) => {
-    props.dispatch(removeFromSchedule(id));
+    this.props.dispatch(removeFromSchedule(id));
   }
 
   handleAdd = () => {
-    props.dispatch(addToSchedule(
+    this.props.dispatch(addToSchedule(
       parseInt(this.refs.duration.value),
       parseInt(this.refs.time.value),
       parseInt(this.refs.frequency.value)

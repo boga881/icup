@@ -16,7 +16,6 @@ export default class Routes extends React.Component {
   render() {
     return(
       <div>
-        <h1>Mi Aplicacion React Js</h1>
         <h3>Dan is cool</h3>
         <Router>
           <Switch>
