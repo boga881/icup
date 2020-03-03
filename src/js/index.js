@@ -4,7 +4,6 @@ import { createStore, applyMiddleware } from 'redux'
 import * as createHistory  from 'history'
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
-import SideNav from 'Components/SideNav';
 import Routes from 'Components/Routes';
 import reducer from './reducers'
 import thunk from 'redux-thunk';
@@ -39,7 +38,6 @@ function App() {
           <Routes />
         </Router>
       </Provider>
-      <SideNav />
     </div>
   );
 }

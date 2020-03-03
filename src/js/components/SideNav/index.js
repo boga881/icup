@@ -55,6 +55,7 @@ class Sidenav extends Component {
                 <i className="material-icons">cloud</i>First Link With Icon
               </a>
             </li>
+            <li className={this.props.routing.path==='/'?'active':''}><a <Link to="/" />><i className='material-icons left'>schedule</i> Schedule</a></li>
             <li><Link to="/">Schedule</Link></li>
             <li><Link to="/history">History</Link></li>
             <li><Link to="/settings">Settings</Link></li>
