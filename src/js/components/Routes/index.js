@@ -6,18 +6,14 @@ import Settings from 'Components/Routes/Settings';
 import History from 'Components/Routes/History';
 import Login from 'Components/Routes/Login';
 import NotFound from 'Components/Routes/NotFound';
-import M from "materialize-css";
-import "materialize-css/dist/css/materialize.min.css";
 import image1 from "../../../img/icon.png";
 import image2 from "../../../img/icon.png";
 
 class Routes extends Component {
 
+
   constructor(props) {
     super(props);
-    this.state = {
-      instance: false,
-    }
   }
 
   componentDidMount() {
@@ -27,18 +23,8 @@ class Routes extends Component {
     //   draggable: true
     // };
     M.Sidenav.init(this.Sidenav);
-    this.setState({
-      instance: M.Sidenav.getInstance(this.Sidenav)
-    });
-    //let instance = M.Sidenav.getInstance(this.Sidenav);
-    this.state.instance.open();
-    //console.log(instance.isOpen);
-  }
-
-//TODO rewrite sidenav 
-//https://codesandbox.io/s/9z08p6wjpo
-  closeNav = () => {
-    this.state.instance.close();
+    let instance = M.Sidenav.getInstance(this.Sidenav);
+    //instance.open();
   }
 
   /*
@@ -51,6 +37,7 @@ class Routes extends Component {
    */
 
   render() {
+
     return (
       <Router>
         <div>
@@ -76,22 +63,22 @@ class Routes extends Component {
                 <i className="material-icons">cloud</i>First Link With Icon
               </a>
             </li>
-            <li>
+            <li className='sidenav-close'>
               {/*<i className='material-icons left'>*/}
-              <Link to="/" onClick={() => this.closeNav()}>Schedule</Link>
+              <Link to="/schedule">Schedule</Link>
               {/*</i>*/}
             </li>
-            <li>
+            <li className='sidenav-close'>
               {/*<i className='material-icons left'>*/}
                 <Link to="/history">History</Link>
               {/*</i>*/}
             </li>
-            <li>
+            <li className='sidenav-close'>
               {/*<i className='material-icons left'>*/}
                 <Link to="/settings">Settings</Link>
               {/*</i>*/}
             </li>
-            <li>
+            <li className='sidenav-close'>
               {/*<i className='material-icons left'>*/}
                 <Link to="/logout">Logout</Link>
               {/*</i>*/}
@@ -108,7 +95,7 @@ class Routes extends Component {
               </a>
             </li>
           </ul>
-          <a href="#!" data-target="slide-out" className="sidenav-trigger">
+          <a href="#" data-target="slide-out" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
         </div>

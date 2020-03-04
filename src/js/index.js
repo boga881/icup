@@ -8,6 +8,8 @@ import Routes from 'Components/Routes';
 import reducer from './reducers'
 import thunk from 'redux-thunk';
 
+import M from "materialize-css";
+import "materialize-css/dist/css/materialize.min.css";
 
 { /* import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';

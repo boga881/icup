@@ -1,17 +1,12 @@
 import React from 'react';
 //import $ from 'jquery';
 //import { sidenav } from '../../../../../node_modules/materialize-css/js/sidenav.js';
-import tapOrClick from 'react-tap-or-click';
+//import tapOrClick from 'react-tap-or-click';
 import { BrowserRouter as Router, Switch, Route, Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ValveSwitch from 'Components/ValveSwitch';
 import Logo from 'Components/Logo';
 import { createBrowserHistory } from 'history'
-
-
-
-//connect(state => state)
-//     export default class Main extends React.Component {
 
 function Main(props) {
 
@@ -46,18 +41,10 @@ function Main(props) {
              <Logo style={{width:"2rem",height:"2rem",marginLeft:"8px",marginRight:"8px"}} />
           </a>
 
-          <a href='#' {...tapOrClick(handleShowSideNav)} data-activates='mobile-nav' className='button-collapse'><i style={{marginLeft:'8px'}} className='material-icons'>menu</i></a>
+          <a href='/' data-activates='mobile-nav' className='sidenav-open button-collapse'><i style={{marginLeft:'52px'}} className='material-icons'>menu</i></a>
 
-          /* HIDE DESKTOP MENU & USE SIDENAV
-          <Route>
-            <ul className='right hide-on-med-and-down'>
-              <li><Link to="/">Schedule</Link></li>
-              <li><Link to="/history">History</Link></li>
-              <li><Link to="/settings">Settings</Link></li>
-            </ul>
-          </Route> */
-
-          {/* <ul className='right hide-on-med-and-down'>
+          {/* HIDE DESKTOP MENU & USE SIDENAV
+          * <ul className='right hide-on-med-and-down'>
               <li className={this.props.routing.path==='/'?'active':''}><a {...tapOrClick(this.handleNav.bind(this,'/'))}><i className='material-icons'>schedule</i></a></li>
               <li className={this.props.routing.path==='/history'?'active':''}><a {...tapOrClick(this.handleNav.bind(this,'/history'))}><i className='material-icons'>history</i></a></li>
               <li className={this.props.routing.path==='/settings'?'active':''}><a {...tapOrClick(this.handleNav.bind(this,'/settings'))}><i className='material-icons'>settings</i></a></li>

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import tapOrClick from 'react-tap-or-click';
 import { connect } from 'react-redux';
-import superagent from 'Utils/superagent-promise';
-import * as keys from 'Keys';
 import { getSettings, updateSettings } from 'Actions/settings';
 import Loading from 'Components/Loading';
+import UserLocation from 'Components/UserLocation';
 import * as clientConfig from 'Utils/client-config';
-import PropTypes from 'prop-types'
 
 class SettingsComponent extends Component {
 
@@ -16,21 +14,25 @@ class SettingsComponent extends Component {
       shutoffDuration: 0,
       location: null,
       checkWeather: false,
-      intialized: this.props.initialized ? this.props.initialized : false
+      //intialized: this.props.initialized ? this.props.initialized : false,
+      isLoading: true
     };
   }
 
   componentDidMount() {
-    if (!this.state.initialized) {
-      this.props.dispatch(getSettings());
-    } else {
-      this.setStateFromProps(this.props);
-    }
+    this.setState({
+      isLoading: false
+    });
+    // if (!this.state.initialized) {
+    //   this.props.dispatch(getSettings());
+    // } else {
+    //   this.setStateFromProps(this.props);
+    // }
   }
 
   componentDidUpdate() {
     {/* eslint no-undef:0 */}
-    Materialize.updateTextFields();
+    M.updateTextFields();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,174 +63,105 @@ class SettingsComponent extends Component {
     });
     if (!e.target.checked) {
       this.props.dispatch(updateSettings({
-          location: null
+        location: null
       }));
     }
   }
 
   handleChangeLocation = (loc) => {
     const newState = {
-       location: loc
+      location: loc
     };
     this.setState(newState);
     this.props.dispatch(updateSettings(newState));
   }
 
   handleRefreshLocation = () => {
-    this.setState({ location: null });
+    this.setState({
+      location: null
+    });
   }
 
   render() {
-    return !this.props.initialized ? <Loading /> : (<div className='row'>
-      <h3>Settings</h3>
-      <form className='col s12'>
-        <div className='row'>
-          <div className='col s12'>
-            <p>The 8 digit Pin code required to register this device with Apple HomeKit.</p>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='input-field col s12'>
-            <label htmlFor="homekit-pin">HomeKit Pin</label>
-            <input value={clientConfig.HOMEKIT_PINCODE} readOnly={true} id="homekit-pin" type="text" />
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col s12'>
-            <p>Automatically switch off the valve after a set duration of time. This setting does not affect scheduled waterings.</p>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col s12'>
-            <label>Automatic valve shut-off</label>
-            <select ref='shutoffDuration' className='browser-default' value={this.state.shutoffDuration} onChange={this.handleChangeShutoffDuration}>
-              <option value='0'>Disabled</option>
-              <option value='1'>1 Minute</option>
-              <option value='2'>2 Minutes</option>
-              <option value='5'>5 Minutes</option>
-              <option value='10'>10 Minutes</option>
-              <option value='15'>15 Minutes</option>
-              <option value='30'>30 Minutes</option>
-              <option value='60'>60 Minutes</option>
-            </select>
-          </div>
-          </div>
-            <div className='row'>
-              <div className='col s12'>
-                <p>Check the weather in your location and don't start scheduled waterings if it currently raining.</p>
+    const { isLoading, checkWeather } = this.state;
+
+    return(
+      <React.Fragment>
+        {isLoading &&
+          <Loading />
+        }
+
+        {!isLoading &&
+          <div className='row'>
+            <h3>Settings</h3>
+            <form className='col s12'>
+              <div className='row'>
+                <div className='col s12'>
+                  <p>The 8 digit Pin code required to register this device with Apple HomeKit.</p>
+                </div>
               </div>
-            </div>
-            <div className='row'>
-              <div className='col s12'>
-                <p>
-                  <input type='checkbox' id='checkWeather' className='filled-in' onChange={this.handleCheckWeather} checked={this.state.checkWeather} />
-                  <label htmlFor='checkWeather'>Check weather</label>
-                  { this.state.checkWeather ? (<a className="waves-effect weather-btn btn-flat right" {...tapOrClick(this.handleRefreshLocation)}><i className='material-icons left'>refresh</i> Refresh</a>) : null }
-                </p>
+              <div className='row'>
+                <div className='input-field col s12'>
+                  <label htmlFor="homekit-pin">HomeKit Pin</label>
+                  <input value={clientConfig.HOMEKIT_PINCODE} readOnly={true} id="homekit-pin" type="text" />
+                </div>
               </div>
-            </div>
-            { this.state.checkWeather ?
-            (<div className='row'>
-              <div className='col s12'>
-                // TODO enable component
-                //<UserLocationComponent location={this.state.location} onChange={this.handleChangeLocation} />
+              <div className='row'>
+                <div className='col s12'>
+                  <p>Automatically switch off the valve after a set duration of time. This setting does not affect scheduled waterings.</p>
+                </div>
               </div>
-            </div>) : null }
-        </form>
-    </div>);
+              <div className='row'>
+                <div className='col s12'>
+                  <label>Automatic valve shut-off</label>
+                  <select ref='shutoffDuration' className='browser-default' value={this.state.shutoffDuration} onChange={this.handleChangeShutoffDuration}>
+                    <option value='0'>Disabled</option>
+                    <option value='1'>1 Minute</option>
+                    <option value='2'>2 Minutes</option>
+                    <option value='5'>5 Minutes</option>
+                    <option value='10'>10 Minutes</option>
+                    <option value='15'>15 Minutes</option>
+                    <option value='30'>30 Minutes</option>
+                    <option value='60'>60 Minutes</option>
+                  </select>
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col s12'>
+                  <p>Check the weather in your location and don't start scheduled waterings if it currently raining.</p>
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col s12'>
+                  <p>
+                    <input type='checkbox' id='checkWeather' className='filled-in' onChange={this.handleCheckWeather} checked={this.state.checkWeather} />
+                    <label htmlFor='checkWeather'>Check weather</label>
+
+                    { checkWeather &&
+                      <a className="waves-effect weather-btn btn-flat right" {...tapOrClick(this.handleRefreshLocation)}>
+                        <i className='material-icons left'>refresh</i>
+                        Refresh
+                      </a>
+                    }
+
+                  </p>
+                </div>
+              </div>
+
+              { checkWeather &&
+                <div className='row'>
+                  <div className='col s12'>
+                    <UserLocation location={this.state.location} onChange={this.handleChangeLocation} />
+                  </div>
+                </div>
+              }
+            </form>
+          </div>
+        }
+      </React.Fragment>
+    );
   }
+
 }
 
 export default connect()(SettingsComponent);
-
-
-// class UserLocationComponent extends React.Component {
-//     static propTypes = {
-//         onChange: PropTypes.func.isRequired,
-//         location: PropTypes.object
-//     }
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             notSupported: false,
-//             denied: false
-//         };
-//     }
-//     componentDidMount() {
-//         this.setStateFromProps(this.props);
-//     }
-//     componentWillReceiveProps(nextProps) {
-//         this.setStateFromProps(nextProps);
-//     }
-//     setStateFromProps(props) {
-//         this.setState({
-//             location: props.location
-//         });
-//         if (!props.location) {
-//             this.findLocation();
-//         } else {
-//             superagent
-//                 .get(`/api/1/weather?lat=${props.location.latitude}&lon=${props.location.longitude}`)
-//                 .accept('json')
-//                 .end()
-//                 .then(res => {
-//                     if (res.body.success) {
-//                         this.setState({ weather: res.body.weather });
-//                     }
-//                 })
-//                 .catch(() => {
-//                     this.setState({ weather: null });
-//                 });
-//         }
-//     }
-//     findLocation = () => {
-//         if (navigator.geolocation) {
-//             navigator.geolocation.getCurrentPosition(position => {
-//                 const newState = {
-//                     location: {
-//                         latitude: position.coords.latitude,
-//                         longitude: position.coords.longitude,
-//                         accuracy: position.coords.accuracy
-//                     }
-//                 };
-//                 this.setState(newState);
-//                 this.props.onChange(newState.location);
-//             },() => {
-//                 this.setState({ denied: true });
-//             });
-//         } else {
-//             this.setState({ notSupported: true });
-//         }
-//     }
-//     render() {
-//         if (this.state.denied || this.state.notSupported) {
-//             return <div className="row">
-//                 <div className="col s12">
-//                     <div className="card-panel teal">
-//                         <span className="white-text">{
-//                             this.state.denied ?
-//                             'To use the weather checking feature this application must be able to determine your current location. Ensure that you have given permission for this website to view your location information.' : 'Your browser doesn\t support geolocation. To use the weather checking feature this application must be able to determine your current location.'} </span>
-//                     </div>
-//                 </div>
-//             </div>;
-//         } else if (!this.state.location) {
-//             return <div className='row'>
-//                 <div className='col s12'>
-//                     <div className="progress">
-//                         <div className="indeterminate"></div>
-//                     </div>
-//                 </div>
-//             </div>;
-//         } else {
-//             return <div>
-//                 { this.state.weather ?
-//                 (<div className='weather-info'>
-//                     <img src={this.state.weather.icon} />
-//                     <h5 className='right'>{this.state.weather.description}</h5>
-//                 </div>)
-//                 : null }
-//                 <img style={{width:'100%',maxWidth:'100%'}}src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.state.location.latitude},${this.state.location.longitude}&zoom=15&size=1280x720&key=${keys.GOOGLE_MAPS_API_KEY}`} />
-//             </div>;
-//         }
-//     }
-// }

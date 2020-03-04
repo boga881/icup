@@ -45,16 +45,23 @@ class ScheduleComponent extends Component {
   }
 
   render() {
+    const { initialized, items } = this.props;
     return (
-      <h3>Schedule</h3>
-      // { props.initialized &&
-      //   <Loading />
-      // }
-      //
-      //
-      // <div className='row'>
-      //   <h3>Schedule</h3>
-      //
+      <React.Fragment>
+        { !initialized &&
+          <Loading />
+        }
+
+        { initialized &&
+          <h3>Schedule</h3>
+          { items.length &&
+            <p>poo</p>
+          }
+        }
+      </React.Fragment>
+
+
+
       // { this.props.items.length &&
       //     <div className='col s12'>
       //       <table className='bordered'>
