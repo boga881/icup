@@ -6,11 +6,10 @@ import Settings from 'Components/Routes/Settings';
 import History from 'Components/Routes/History';
 import Login from 'Components/Routes/Login';
 import NotFound from 'Components/Routes/NotFound';
-import image1 from "../../../img/icon.png";
-import image2 from "../../../img/icon.png";
+import logo from "../../../img/icon.png";
+import sidebar from "../../../img/sidebar.jpg";
 
 class Routes extends Component {
-
 
   constructor(props) {
     super(props);
@@ -24,7 +23,6 @@ class Routes extends Component {
     // };
     M.Sidenav.init(this.Sidenav);
     let instance = M.Sidenav.getInstance(this.Sidenav);
-    //instance.open();
   }
 
   /*
@@ -45,10 +43,10 @@ class Routes extends Component {
             <li>
               <div className="user-view">
                 <div className="background">
-                  <img src={image2} />
+                  <img src={sidebar} />
                 </div>
                 <a href="#user">
-                  <img className="circle" src={image1} />
+                  <img className="circle" src={logo} />
                 </a>
                 <a href="#name">
                   <span className="white-text name">John Doe</span>
@@ -100,19 +98,14 @@ class Routes extends Component {
           </a>
         </div>
 
-
-
-
-          <Switch>
-            <Route exact path='/' component={Main} />
-            <Route path='/login' component={Login} />
-            <Route path='/schedule' component={Schedule} />
-            <Route path='/settings' component={Settings} />
-            <Route path='/history' component={History} />
-            <Route component={NotFound} />
-          </Switch>
-
-
+        <Switch>
+          <Route exact path='/' component={Main} />
+          <Route path='/login' component={Login} />
+          <Route path='/schedule' component={Schedule} />
+          <Route path='/settings' component={Settings} />
+          <Route path='/history' component={History} />
+          <Route component={NotFound} />
+        </Switch>
 
       </Router>
     );

@@ -7,28 +7,15 @@ import { Router } from 'react-router-dom';
 import Routes from 'Components/Routes';
 import reducer from './reducers'
 import thunk from 'redux-thunk';
-
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 
-{ /* import { Router } from 'react-router';
-import { createBrowserHistory } from 'history';
-import { Routes } from './components/Routes';*/}
-
-{ /* import { syncHistoryWithStore } from 'react-router-redux'; */}
-{ /* import { BrowserRouter as Router, Route } from 'react-router-dom'; */}
-
-{ /* import createStoreWithMiddleware from './utils/store';
-import routes from './utils/routes'; */ }
-
-{ /*const store = createStoreWithMiddleware();
-const store = createStore(todoApp, {}) */}
-
+import createStoreWithMiddleware from 'Utils/store';
 
 function App() {
 
   const history = createHistory.createBrowserHistory();
-  const store = createStore(
+  const store = createStoreWithMiddleware(
     reducer,
     applyMiddleware(thunk)
   );
@@ -46,21 +33,6 @@ function App() {
 
 const rootElement = document.getElementById("app-container");
 ReactDOM.render(<App />, rootElement);
-
-
-
-{ /* const history = createBrowserHistory(); */ }
-{ /* const BrowserRouter = require("react-router-dom").BrowserRouter(history,store); */}
-{ /* syncHistoryWithStore(history,store); */}
-{ /* BrowserRouter(history,store); */}
-{ /**/ }
-
-
-
-{/* <Router history={history}>
-   { routes }
- </Router>
-</Provider> */}
 
 { /* import _ from 'lodash';
  import '../css/style.scss';

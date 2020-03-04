@@ -21,30 +21,35 @@ class HistoryComponent extends Component {
     const isLoading = (!initialized && loading);
 
     return (
-      <div>
-        if (isLoading) {
+      <React.Fragment>
+
+        {isLoading &&
           <Loading />
         }
-        else {
-          <h3>History</h3>
-          // if (items.length > 0) {
-          //   <ul className='collection'>
-          //     {items.map(i => {
-          //       return <li key={i.id} className='collection-item'>{moment(i.timestamp,'x').format('MMM DD, hh:mm:ss a')} - {i.message} by <strong>{i.source}</strong></li>;
-          //     })}
-          //   </ul>
-          // }
-          // else {
-          //   <div className='col s12 m6 offset-m3'>
-          //     <div className='card-panel green accent-4'>
-          //       <span className='white-text'>
-          //         Your watering history is currently empty. Every watering event that occurs will be recorded here.
-          //       </span>
-          //     </div>
-          //   </div>
-          // }
+
+        { !isLoading &&
+          <div>
+            <h3>History</h3>
+            {(items && items.length > 0) &&
+              <ul className='collection'>
+                {items.map(i => {
+                  return <li key={i.id} className='collection-item'>{moment(i.timestamp,'x').format('MMM DD, hh:mm:ss a')} - {i.message} by <strong>{i.source}</strong></li>;
+                })}
+              </ul>
+            }
+
+            {!items &&
+              <div className='col s12 m6 offset-m3'>
+                <div className='card-panel green accent-4'>
+                  <span className='white-text'>
+                    Your watering history is currently empty. Every watering event that occurs will be recorded here.
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
         }
-      </div>
+      </React.Fragment>
     );
   }
 
