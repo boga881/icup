@@ -4,7 +4,7 @@ import https from 'https';
 import fs from 'fs';
 import storage from 'node-persist';
 import hap from 'hap-nodejs';
-import uuid from 'node-uuid';
+import {v4 as uuid} from 'uuid';
 
 import express from 'express';
 //express middleware
@@ -22,8 +22,8 @@ import ValveController from './valve-controller';
 import Scheduler from './scheduler';
 import HistoryLogger from './history-logger';
 import * as config from './config';
-import * as clientConfig from './client-config'; 
-import * as keys from '../keys';
+import * as clientConfig from './client-config';
+import * as keys from 'Keys';
 
 // configure express and its middleware
 const app = express();
@@ -33,27 +33,28 @@ app.use(compression());
 
 // configure logging
 app.logger = new(winston.Logger)({
-    transports: [
-        new winston.transports.Console({
-            level: config.LOG_LEVEL,
-            colorize: true,
-            timestamp: true
-        })
-    ]
+  transports: [
+    new winston.transports.Console({
+      level: config.LOG_LEVEL,
+      colorize: true,
+      timestamp: true
+    })
+  ]
 });
+
 app.use(morgan('combined', {
-    stream: {
-        write: message => app.logger.verbose(message)
-    }
+  stream: {
+    write: message => app.logger.verbose(message)
+  }
 }));
 
 app.use(cookieParser(uuid.v4()));
 app.use(bodyParser.json());
 if (process.env.NODE_ENV !== 'production') {
-    app.use(errorHandler({
-        dumpExceptions: true,
-        showStack: true
-    }));
+  app.use(errorHandler({
+    dumpExceptions: true,
+    showStack: true
+  }));
 }
 
 // setup storage engine
@@ -62,22 +63,23 @@ storage.initSync();
 
 // create the history logger
 app.history = new HistoryLogger(
-    app.storage,
-    app.logger,
-    config.MAX_HISTORY_ITEMS);
+  app.storage,
+  app.logger,
+  config.MAX_HISTORY_ITEMS
+);
 
 // create the valve controller
 app.valveController = new ValveController(
-    app.history,
-    app.logger);
+  app.history,
+  app.logger);
 
 // load the watering scheduler
 app.scheduler = new Scheduler(
-    keys.OPEN_WEATHER_API_KEY,
-    app.storage,
-    app.history,
-    app.logger,
-    app.valveController);
+  keys.OPEN_WEATHER_API_KEY,
+  app.storage,
+  app.history,
+  app.logger,
+  app.valveController);
 
 app.logger.info('Scheduler starting...');
 app.scheduler.start(false,() => {

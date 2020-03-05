@@ -1,6 +1,6 @@
-import uuid from 'node-uuid';
+import {v4 as uuid} from 'uuid';
 import superagent from './superagent-promise';
-import * as keys from '../keys';
+import * as keys from 'Keys';
 import * as config from './config';
 import * as clientConfig from './client-config';
 import { middleware } from './session';

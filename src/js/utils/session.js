@@ -1,4 +1,4 @@
-import uuid from 'node-uuid';
+import {v4 as uuid} from 'uuid';
 import * as config from './config';
 
 export function middleware(req, res, next) {

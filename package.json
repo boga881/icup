@@ -1,6 +1,8 @@
 {
-  "name": "wp4",
+  "name": "ICUP",
   "version": "1.0.0",
+  "readme": "README.rm",
+  "license": "MIT",
   "description": "",
   "private": true,
   "engines": {
@@ -12,22 +14,28 @@
     "start": "webpack-dev-server --mode development --watch",
     "build": "webpack --mode production"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.5"
+    "@babel/core": "^7.8.7",
+    "cookie-parser": "^1.4.4",
+    "errorhandler": "^1.5.1",
+    "hap-nodejs": "^0.5.6",
+    "lodash": "^4.17.5",
+    "morgan": "^1.9.1",
+    "onoff": "^5.0.1",
+    "uuid": "^7.0.2",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.8.3",
+    "@babel/register": "^7.8.6",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.2",
     "csv-loader": "^3.0.2",
     "file-loader": "^5.1.0",
+    "fs-extra": "^8.1.0",
     "history": "^4.10.1",
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.4.1",

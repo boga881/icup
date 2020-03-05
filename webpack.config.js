@@ -7,8 +7,12 @@ const MODULE_BUILD_DIR = path.resolve(__dirname, './dist');
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/js/index.js',
-    print: './src/js/print.js',
+    app: [
+      path.resolve(__dirname, './src/js/index.js'),
+      path.resolve(__dirname, './src/css/app.scss'),
+      'webpack-dev-server/client?',
+      'webpack/hot/only-dev-server',
+    ],
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -35,6 +39,13 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: MODULE_BUILD_DIR,
+    devtoolModuleFilenameTemplate: '[resource-path]'
+  },
+  node: {
+    child_process: 'empty',
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty'
   },
   resolve: {
    alias: {
@@ -46,6 +57,9 @@ module.exports = {
    }
  },
   module: {
+    noParse: function (content) {
+      return /express/.test(content);
+    },
     rules: [
       {
         test: /\.m?js$/,
@@ -55,16 +69,16 @@ module.exports = {
           options: {
             presets: [
               '@babel/preset-env',
-              '@babel/react',
-              {
-                'plugins': ['@babel/plugin-proposal-class-properties']
-              }
+              '@babel/react'
+            ],
+            plugins: [
+              '@babel/plugin-proposal-class-properties'
             ]
           }
         }
       },
       {
-        test: /\.css?/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           'style-loader',
           'css-loader',

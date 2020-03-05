@@ -1,4 +1,20 @@
-import React from 'react';
+require('@babel/register');
+
+// tidy up babels default stacktrace rendering
+process.on("uncaughtException", function(err) {
+  if (err._babel && err instanceof SyntaxError) {
+    console.error(err.message + "\n" + err.codeFrame);
+  } else {
+    console.error(err.stack);
+  }
+  process.exit(1);
+});
+
+console.log('loading app');
+require('./utils/app');
+
+
+{ /* import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux'
 import * as createHistory  from 'history'
@@ -32,7 +48,7 @@ function App() {
 }
 
 const rootElement = document.getElementById("app-container");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(<App />, rootElement); */}
 
 { /* import _ from 'lodash';
  import '../css/style.scss';
