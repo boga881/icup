@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link, useParams } from 'react-router-dom';
 import ValveSwitch from 'Components/ValveSwitch';
 import Logo from 'Components/Logo';
-import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history';
+
+{/*let DevTool = null;
+if (process.env.NODE_ENV !== 'production') {
+  DevTool = require('Utils/devtools');
+  console.log('ENV: ' + process.env.NODE_ENV);
+} */}
 
 function Main(props) {
-
-  let DevTools = process.env.NODE_ENV !== 'production'
-    ? DevTools = require('Utils/devtools')
-    : null;
 
   const history = createBrowserHistory();
 
@@ -20,7 +22,7 @@ function Main(props) {
 
   return (
     <div>
-      <DevTools />
+      {/*<DevTool />*/}
       <header>
         <nav className='top-nav'>
           <div className='nav-wrapper'>
